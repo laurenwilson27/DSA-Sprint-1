@@ -48,7 +48,7 @@ public class Main {
             String command = input.nextLine().trim().toLowerCase();
             switch (command) {
                 case "tasks": tasksLoop(); break;
-                case "users": break;
+                case "users": usersLoop(); break;
                 case "quit": return;
                 default:
                     System.out.println("That is not a valid command.");
@@ -122,11 +122,58 @@ public class Main {
         }
     }
 
-    private void usersLoop() {
+    private static void usersLoop() {
         System.out.println("== Users ==");
 
         while (true) {
+            System.out.println("\nEnter one of the following options:");
+            System.out.println("list\t\tPrint a list of all users");
+            System.out.println("switch <name>\tSet another user as the active user");
+            System.out.println("new <name>\tCreate a new user");
+            System.out.println("exit\t\tReturn to the main menu");
+            prompt();
 
+            // Commands in this menu take arguments, so split the user input into an array
+            String[] command = input.nextLine().trim().split(" ");
+
+            String argument;
+            if (command.length > 1)
+                argument = command[1];
+            else argument = null;
+
+            switch (command[0]) {
+                case "list":
+                    System.out.println("List of all users:");
+                    for (User user : users.values())
+                        System.out.println("\t" + user.getName());
+                    break;
+
+                case "switch":
+                    if (argument == null)
+                        System.out.println("A user must be specified.");
+                    else if (!users.containsKey(command[1]))
+                        System.out.println("No user named '" + command[1] + "' was found.");
+                    else
+                        currentUser = users.get(command[1]);
+                    break;
+
+                case "new":
+                    if (argument == null)
+                        System.out.println("A user name must be specified.");
+                    else if (users.containsKey(command[1]))
+                        System.out.println("That user already exists.");
+                    else {
+                        User newUser = new User(command[1]);
+                        users.put(command[1], newUser);
+
+                        System.out.println("User '" + command[1] + "' has been created.");
+                    }
+                    break;
+
+                case "exit": return;
+                default:
+                    System.out.println("That is not a valid command.");
+            }
         }
     }
 
