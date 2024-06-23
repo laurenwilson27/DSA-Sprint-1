@@ -30,7 +30,6 @@ public class Main {
     }
 
     // The main/top level menu for this program
-    // Takes a map of users to operate on, which it receives from the main() method
     private static void mainLoop() {
         // The user list contains one user, set them as the current user
         currentUser = users.values().iterator().next();
@@ -59,15 +58,15 @@ public class Main {
 
     // Menu for adding a task to the current user, and printing the user/all tasks
     private static void tasksLoop() {
-        System.out.println("\n== Tasks Menu ==");
+        System.out.println("\n== Tasks ==");
 
         while (true) {
             System.out.println("\nEnter one of the following options:");
-            System.out.println("print\t\tShow all tasks for the current user");
-            System.out.println("printall\tShow all tasks for all users");
+            System.out.println("print\t\t\t\tShow all tasks for the current user");
+            System.out.println("printall\t\t\tShow all tasks for all users");
             System.out.println("add <description>\tAdd a new task");
-            System.out.println("complete <id>\tMark a task as completed");
-            System.out.println("exit\t\tReturn to the main menu");
+            System.out.println("complete <id>\t\tMark a task as completed");
+            System.out.println("exit\t\t\t\tReturn to the main menu");
             prompt();
 
             // Commands in this menu take arguments, so split the user input into an array
@@ -120,6 +119,14 @@ public class Main {
                 default:
                     System.out.println("That is not a valid command.");
             }
+        }
+    }
+
+    private void usersLoop() {
+        System.out.println("== Users ==");
+
+        while (true) {
+
         }
     }
 
