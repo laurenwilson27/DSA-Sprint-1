@@ -61,7 +61,7 @@ public class Main {
         System.out.println("\n== Tasks ==");
 
         while (true) {
-            System.out.println("\nEnter one of the following options:");
+            System.out.println("Enter one of the following options:");
             System.out.println("print\t\t\t\tShow all tasks for the current user");
             System.out.println("printall\t\t\tShow all tasks for all users");
             System.out.println("add <description>\tAdd a new task");
@@ -81,12 +81,14 @@ public class Main {
             switch (command[0].toLowerCase()) {
                 case "print":
                     currentUser.printTasks();
+                    pauseForInput();
                     break;
 
                 case "printall":
                     for (User user : users.values()) {
                         user.printTasks();
                     }
+                    pauseForInput();
                     break;
 
                 case "add":
@@ -97,6 +99,7 @@ public class Main {
                         currentUser.addTask(newTask);
                         System.out.println("Task " + currentUser.getNumberOfTasks() +  " added.");
                     }
+                    pauseForInput();
                     break;
 
                 case "complete":
@@ -112,6 +115,7 @@ public class Main {
                             System.out.println("Task number must be a valid integer.");
                         }
                     }
+                    pauseForInput();
                     break;
 
                 case "exit": return;
@@ -122,11 +126,12 @@ public class Main {
         }
     }
 
+    // Menu for listing users, creating users, and switching the active user
     private static void usersLoop() {
         System.out.println("== Users ==");
 
         while (true) {
-            System.out.println("\nEnter one of the following options:");
+            System.out.println("Enter one of the following options:");
             System.out.println("list\t\tPrint a list of all users");
             System.out.println("switch <name>\tSet another user as the active user");
             System.out.println("new <name>\tCreate a new user");
@@ -146,6 +151,7 @@ public class Main {
                     System.out.println("List of all users:");
                     for (User user : users.values())
                         System.out.println("\t" + user.getName());
+                    pauseForInput();
                     break;
 
                 case "switch":
@@ -155,6 +161,7 @@ public class Main {
                         System.out.println("No user named '" + command[1] + "' was found.");
                     else
                         currentUser = users.get(command[1]);
+                    pauseForInput();
                     break;
 
                 case "new":
@@ -168,6 +175,7 @@ public class Main {
 
                         System.out.println("User '" + command[1] + "' has been created.");
                     }
+                    pauseForInput();
                     break;
 
                 case "exit": return;
@@ -179,5 +187,11 @@ public class Main {
 
     private static void prompt() {
         System.out.print(currentUser.getName() + " > ");
+    }
+
+    private static void pauseForInput() {
+        System.out.println("Press ENTER to continue...");
+        input.nextLine();
+        System.out.println();
     }
 }
